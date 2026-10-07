@@ -1,0 +1,245 @@
+<section id="contact" class="relative py-14 sm:py-28">
+  <div class="absolute inset-x-0 top-0 -z-10 h-2/3 bg-gradient-to-b from-white to-transparent"></div>
+
+  <div class="container-x">
+    <div class="mx-auto max-w-2xl text-center" appReveal>
+      <span class="eyebrow">
+        <span class="material-symbols-outlined text-[16px]">support_agent</span>
+        {{ i18n.t().contact.eyebrow }}
+      </span>
+      <h2 class="section-title">{{ i18n.t().contact.title }}</h2>
+      <div class="title-ornament" aria-hidden="true"><i></i></div>
+      <p class="section-subtitle">{{ i18n.t().contact.subtitle }}</p>
+    </div>
+
+    <div class="mt-8 grid gap-4 sm:mt-14 sm:gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+      <!-- قنوات التواصل -->
+      <aside class="gold-frame grain relative min-w-0 self-start lg:sticky lg:top-24 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-primary via-brand-dark to-brand-deeper p-4 text-white shadow-[0_40px_80px_-30px_rgba(4,33,26,0.6)] sm:p-8" appReveal>
+        <div class="bg-grid absolute inset-0 opacity-50"></div>
+        <div class="animate-aurora absolute -bottom-24 -end-24 h-64 w-64 rounded-full bg-brand-gold/25 blur-3xl"></div>
+
+        <ul class="relative grid grid-cols-2 gap-2.5 sm:grid-cols-1 sm:gap-3">
+          <li>
+            <a [href]="telHref" class="channel group">
+              <span class="channel-icon"><span class="material-symbols-outlined">call</span></span>
+              <span class="min-w-0">
+                <span class="channel-label">{{ i18n.t().contact.channels.phone }}</span>
+                <span class="channel-value" dir="ltr">{{ site.contact.phone }}</span>
+              </span>
+            </a>
+          </li>
+          <li *ngIf="site.contact.whatsapp">
+            <a [href]="'https://wa.me/' + site.contact.whatsapp" target="_blank" rel="noopener" class="channel group">
+              <span class="channel-icon !bg-[#25D366]/15 !text-[#4ADE80]"><span class="material-symbols-outlined">chat</span></span>
+              <span class="min-w-0">
+                <span class="channel-label">{{ i18n.t().contact.channels.whatsapp }}</span>
+                <span class="channel-value" dir="ltr">+{{ site.contact.whatsapp }}</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a [href]="'mailto:' + site.contact.email" class="channel group">
+              <span class="channel-icon"><span class="material-symbols-outlined">mail</span></span>
+              <span class="min-w-0">
+                <span class="channel-label">{{ i18n.t().contact.channels.email }}</span>
+                <span class="channel-value truncate">{{ site.contact.email }}</span>
+              </span>
+            </a>
+          </li>
+          <li [class.col-span-2]="!site.contact.whatsapp" class="sm:col-span-1">
+            <a [href]="site.contact.mapUrl" target="_blank" rel="noopener" class="channel group">
+              <span class="channel-icon"><span class="material-symbols-outlined">location_on</span></span>
+              <span class="min-w-0 max-w-full flex-1">
+                <span class="channel-label">{{ i18n.t().contact.channels.address }}</span>
+                <span class="channel-value max-sm:line-clamp-1 sm:whitespace-normal">{{ i18n.pick(site.contact.address) }}</span>
+              </span>
+              <span class="material-symbols-outlined absolute end-3 top-3 text-[16px] text-white/40 transition-colors group-hover:text-brand-gold-light sm:static sm:text-[18px]">open_in_new</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="relative mt-2.5 flex items-center gap-3 rounded-2xl border border-brand-gold/25 bg-brand-gold/10 p-3.5 sm:mt-6 sm:p-4">
+          <span class="material-symbols-outlined text-brand-gold-light">schedule</span>
+          <div>
+            <p class="text-xs font-bold text-white/60">{{ i18n.t().contact.channels.hours }}</p>
+            <p class="text-sm font-extrabold">{{ i18n.pick(site.contact.hours) }}</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- النماذج -->
+      <div class="relative min-w-0 rounded-3xl border border-slate-200/80 bg-white p-4 shadow-[0_30px_70px_-35px_rgba(11,74,58,0.35)] sm:p-8" [appReveal]="120">
+        <div aria-hidden="true" class="absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-brand-gold/70 to-transparent"></div>
+        <div class="no-scrollbar flex gap-1 overflow-x-auto rounded-2xl bg-brand-bg p-1.5" role="tablist">
+          <button
+            *ngFor="let k of kinds"
+            type="button"
+            role="tab"
+            [attr.aria-selected]="leads.activeForm() === k.key"
+            (click)="selectTab(k.key)"
+            class="flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-4 py-2.5 text-sm font-extrabold transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30"
+            [ngClass]="leads.activeForm() === k.key ? 'bg-white text-brand-primary shadow-sm ring-1 ring-slate-200/80' : 'text-slate-500 hover:text-brand-dark'"
+          >
+            <span class="material-symbols-outlined text-[18px]">{{ k.icon }}</span>
+            {{ t.tabs[k.key] }}
+          </button>
+        </div>
+
+        <!-- حالة النجاح / البديل -->
+        <div *ngIf="result() as res; else formTpl" class="flex flex-col items-center px-2 py-12 text-center" style="animation: heroIn .5s both">
+          <ng-container *ngIf="res.kind === 'sent'; else fallbackTpl">
+            <span class="grid h-16 w-16 place-items-center rounded-full bg-emerald-50 text-emerald-600 ring-8 ring-emerald-50/50">
+              <span class="material-symbols-outlined icon-fill text-[32px]">check_circle</span>
+            </span>
+            <h3 class="mt-6 text-xl font-black text-brand-dark">{{ t.successTitle }}</h3>
+            <p class="mt-2 max-w-sm text-sm leading-7 text-slate-500">{{ t.successText }}</p>
+          </ng-container>
+          <ng-template #fallbackTpl>
+            <span class="grid h-16 w-16 place-items-center rounded-full bg-brand-gold/15 text-brand-gold-dark ring-8 ring-brand-gold/5">
+              <span class="material-symbols-outlined icon-fill text-[32px]">send</span>
+            </span>
+            <h3 class="mt-6 text-xl font-black text-brand-dark">{{ t.fallbackTitle }}</h3>
+            <p class="mt-2 max-w-sm text-sm leading-7 text-slate-500">{{ t.fallbackText }}</p>
+            <div *ngIf="res.kind === 'fallback'" class="mt-7 flex w-full max-w-md flex-col gap-3 sm:flex-row">
+              <a *ngIf="res.whatsappUrl" [href]="res.whatsappUrl" target="_blank" rel="noopener" class="btn flex-1 bg-[#25D366] text-white shadow-[0_10px_30px_-8px_rgba(37,211,102,0.55)] hover:-translate-y-0.5 hover:bg-[#1fbd5a] focus-visible:ring-[#25D366]/30">
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+                {{ t.fallbackWhatsapp }}
+              </a>
+              <a [href]="res.mailtoUrl" class="btn-outline flex-1">
+                <span class="material-symbols-outlined text-[18px]">mail</span>
+                {{ t.fallbackEmail }}
+              </a>
+            </div>
+          </ng-template>
+          <button type="button" class="mt-6 inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-extrabold text-brand-primary transition-all duration-200 hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30" (click)="reset()">
+            <span class="material-symbols-outlined text-[18px]">refresh</span>
+            {{ t.again }}
+          </button>
+        </div>
+
+        <ng-template #formTpl>
+          <form id="lead-form" [formGroup]="form" (ngSubmit)="submit()" novalidate class="mt-6" style="animation: heroIn .4s both">
+            <h3 class="mb-5 text-lg font-black text-brand-dark">{{ t.titles[leads.activeForm()] }}</h3>
+
+            <div class="grid gap-x-4 gap-y-5 sm:grid-cols-2">
+              <!-- استفسار -->
+              <ng-container *ngIf="leads.activeForm() === 'contact'">
+                <ng-container *ngTemplateOutlet="input; context: { name: 'name', ph: t.placeholders.name }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'phone', ph: t.placeholders.phone, type: 'tel', ltr: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'email', ph: t.placeholders.email, type: 'email', ltr: true, optional: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="select; context: { name: 'inquiryType', options: t.options.inquiry }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'orderNumber', ph: t.placeholders.orderNumber, optional: true, ltr: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="textarea; context: { name: 'message', ph: t.placeholders.message }"></ng-container>
+              </ng-container>
+
+              <!-- تاجر / مقاول -->
+              <ng-container *ngIf="leads.activeForm() === 'merchant'">
+                <ng-container *ngTemplateOutlet="input; context: { name: 'company', ph: t.placeholders.company }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'contactPerson', ph: t.placeholders.name }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'phone', ph: t.placeholders.phone, type: 'tel', ltr: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'email', ph: t.placeholders.email, type: 'email', ltr: true, optional: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="select; context: { name: 'activity', options: t.options.activity }"></ng-container>
+                <ng-container *ngTemplateOutlet="select; context: { name: 'governorate', options: t.options.governorate }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'cr', ph: t.placeholders.cr, optional: true, ltr: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="select; context: { name: 'monthlyVolume', options: t.options.volume, optional: true }"></ng-container>
+                <label class="group flex cursor-pointer items-start gap-3 rounded-xl border border-brand-primary/10 bg-brand-bg/60 p-4 transition-all duration-300 hover:border-brand-primary/25 sm:col-span-2">
+                  <input type="checkbox" [formControl]="ctrl('credit')" class="peer sr-only" />
+                  <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md border-2 border-slate-300 bg-white text-white transition-all duration-200 peer-checked:border-brand-primary peer-checked:bg-brand-primary peer-focus-visible:ring-4 peer-focus-visible:ring-brand-primary/20">
+                    <span class="material-symbols-outlined text-[14px]" [class.opacity-0]="!ctrl('credit').value">check</span>
+                  </span>
+                  <span class="text-sm font-bold leading-6 text-slate-700">{{ t.fields.credit }}</span>
+                </label>
+                <ng-container *ngTemplateOutlet="textarea; context: { name: 'notes', ph: t.placeholders.notes, optional: true }"></ng-container>
+              </ng-container>
+
+              <!-- مورد / براند -->
+              <ng-container *ngIf="leads.activeForm() === 'supplier'">
+                <ng-container *ngTemplateOutlet="input; context: { name: 'company', ph: t.placeholders.company }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'brand', ph: t.placeholders.brand, optional: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'contactPerson', ph: t.placeholders.name }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'phone', ph: t.placeholders.phone, type: 'tel', ltr: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'email', ph: t.placeholders.email, type: 'email', ltr: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="select; context: { name: 'specialty', options: t.options.specialty }"></ng-container>
+                <ng-container *ngTemplateOutlet="select; context: { name: 'origin', options: t.options.origin, optional: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="select; context: { name: 'productsCount', options: t.options.productsCount, optional: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="input; context: { name: 'catalogUrl', ph: t.placeholders.catalogUrl, type: 'url', ltr: true, optional: true, full: true }"></ng-container>
+                <ng-container *ngTemplateOutlet="textarea; context: { name: 'notes', ph: t.placeholders.notes, optional: true }"></ng-container>
+              </ng-container>
+            </div>
+
+            <div class="mt-7 flex flex-col-reverse items-center gap-4 border-t border-slate-100 pt-6 sm:flex-row sm:justify-between">
+              <p class="flex items-start gap-2 text-xs font-semibold leading-6 text-slate-400">
+                <span class="material-symbols-outlined text-[16px]">lock</span>
+                {{ t.privacy }}
+              </p>
+              <button type="submit" class="btn-primary w-full shrink-0 px-8 sm:w-auto" [disabled]="sending()">
+                <span *ngIf="sending(); else sendIcon" class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"></span>
+                <ng-template #sendIcon><span class="material-symbols-outlined text-[18px] rtl:-scale-x-100">send</span></ng-template>
+                {{ sending() ? t.sending : t.submit }}
+              </button>
+            </div>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- قوالب الحقول -->
+<ng-template #input let-name="name" let-ph="ph" let-type="type" let-ltr="ltr" let-optional="optional" let-full="full">
+  <div [ngClass]="full ? 'sm:col-span-2' : ''">
+    <label class="field-label" [attr.for]="'f-' + name">
+      {{ label(name) }}
+      <span *ngIf="optional" class="text-xs font-semibold text-slate-400">{{ t.optional }}</span>
+    </label>
+    <input
+      [id]="'f-' + name"
+      [type]="type || 'text'"
+      [formControl]="ctrl(name)"
+      [placeholder]="ph || ''"
+      [attr.dir]="ltr ? 'ltr' : null"
+      [class.text-end]="ltr && i18n.isAr()"
+      class="field-input"
+      [class.is-invalid]="showError(name)"
+      [attr.aria-invalid]="showError(name)"
+      autocomplete="on"
+    />
+    <p *ngIf="showError(name)" class="field-error">
+      <span class="material-symbols-outlined text-[14px]">error</span>{{ errorText(name) }}
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #select let-name="name" let-options="options" let-optional="optional">
+  <div>
+    <label class="field-label" [attr.for]="'f-' + name">
+      {{ label(name) }}
+      <span *ngIf="optional" class="text-xs font-semibold text-slate-400">{{ t.optional }}</span>
+    </label>
+    <app-select [inputId]="'f-' + name" [formControl]="ctrl(name)" [options]="options" [placeholder]="t.select" [invalid]="showError(name)"></app-select>
+    <p *ngIf="showError(name)" class="field-error">
+      <span class="material-symbols-outlined text-[14px]">error</span>{{ errorText(name) }}
+    </p>
+  </div>
+</ng-template>
+
+<ng-template #textarea let-name="name" let-ph="ph" let-optional="optional">
+  <div class="sm:col-span-2">
+    <label class="field-label" [attr.for]="'f-' + name">
+      {{ label(name) }}
+      <span *ngIf="optional" class="text-xs font-semibold text-slate-400">{{ t.optional }}</span>
+    </label>
+    <textarea
+      [id]="'f-' + name"
+      rows="4"
+      [formControl]="ctrl(name)"
+      [placeholder]="ph || ''"
+      class="field-input !h-auto resize-none py-3 leading-7"
+      [class.is-invalid]="showError(name)"
+      [attr.aria-invalid]="showError(name)"
+    ></textarea>
+    <p *ngIf="showError(name)" class="field-error">
+      <span class="material-symbols-outlined text-[14px]">error</span>{{ errorText(name) }}
+    </p>
+  </div>
+</ng-template>

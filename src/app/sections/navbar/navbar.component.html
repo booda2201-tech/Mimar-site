@@ -1,0 +1,104 @@
+<header
+  class="fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out"
+  [ngClass]="scrolled || menuOpen ? 'bg-brand-deeper/80 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.5)] backdrop-blur-2xl backdrop-saturate-150' : 'bg-transparent'"
+>
+  <div
+    class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-brand-gold/50 to-transparent transition-opacity duration-500"
+    [ngClass]="scrolled || menuOpen ? 'opacity-100' : 'opacity-0'"
+  ></div>
+  <nav class="container-x flex items-center justify-between gap-4 transition-all duration-300 ease-in-out" [ngClass]="scrolled ? 'h-16' : 'h-[4.5rem] lg:h-20'" aria-label="Main">
+    <a href="#top" class="group flex items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-gold/40">
+      <span class="grid h-11 w-11 place-items-center overflow-hidden rounded-xl bg-white p-1 shadow-[0_8px_24px_-6px_rgba(200,162,75,0.45)] ring-1 ring-brand-gold/40 transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_10px_30px_-4px_rgba(200,162,75,0.6)]">
+        <img [src]="site.logo" alt="" class="h-full w-full object-contain" />
+      </span>
+      <span class="leading-tight">
+        <span class="block text-lg font-black text-white">{{ i18n.isAr() ? 'معمار' : 'MIMAR' }}</span>
+        <span class="block text-[0.65rem] font-bold tracking-[0.2em] text-brand-gold-light">{{ i18n.isAr() ? 'MIMAR' : 'معمار' }}</span>
+      </span>
+    </a>
+
+    <ul class="hidden items-center gap-1 lg:flex">
+      <li *ngFor="let l of links">
+        <a
+          [href]="'#' + l.id"
+          class="relative rounded-lg px-3.5 py-2 text-sm font-bold transition-all duration-300 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+          [ngClass]="active === l.id ? 'text-white' : 'text-white/70'"
+        >
+          {{ i18n.t().nav[l.key] }}
+          <span
+            class="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-brand-gold transition-all duration-300"
+            [ngClass]="active === l.id ? 'opacity-100' : 'scale-x-0 opacity-0'"
+          ></span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        (click)="i18n.toggle()"
+        class="grid h-10 min-w-10 place-items-center rounded-xl border border-white/15 bg-white/5 px-3 text-sm font-black text-white transition-all duration-300 hover:border-brand-gold/60 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-gold/30 active:scale-95"
+        [attr.aria-label]="i18n.t().nav.langLabel"
+        [title]="i18n.t().nav.langLabel"
+      >
+        {{ i18n.t().nav.lang }}
+      </button>
+      <button
+        type="button"
+        class="btn-ghost-light hidden h-10 w-10 px-0 xl:inline-flex"
+        (click)="contact()"
+        [title]="i18n.t().nav.cta"
+        [attr.aria-label]="i18n.t().nav.cta"
+      >
+        <span class="material-symbols-outlined text-[18px] text-brand-gold-light">support_agent</span>
+      </button>
+      <button
+        type="button"
+        class="btn-gold group inline-flex h-10 px-4 shadow-[0_10px_28px_-10px_rgba(200,162,75,0.7)] sm:px-5"
+        (click)="getApp()"
+        [title]="appLabel"
+        [attr.aria-label]="appLabel"
+      >
+        <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:-translate-y-0.5">download</span>
+        <span class="hidden min-[400px]:inline">{{ appLabel }}</span>
+      </button>
+      <button
+        type="button"
+        class="grid h-10 w-10 place-items-center rounded-xl border border-white/15 bg-white/5 text-white transition-all duration-300 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-gold/30 lg:hidden"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        [attr.aria-label]="i18n.t().nav.menu"
+      >
+        <span class="material-symbols-outlined">{{ menuOpen ? 'close' : 'menu' }}</span>
+      </button>
+    </div>
+  </nav>
+
+  <div
+    class="overflow-hidden border-t border-white/10 transition-all duration-300 ease-in-out lg:hidden"
+    [ngClass]="menuOpen ? 'max-h-[80vh] opacity-100' : 'pointer-events-none max-h-0 opacity-0'"
+  >
+    <ul class="container-x flex flex-col gap-1 py-4">
+      <li *ngFor="let l of links">
+        <a
+          [href]="'#' + l.id"
+          (click)="closeMenu()"
+          class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white/85 transition-all duration-200 hover:bg-white/5 hover:text-white"
+        >
+          {{ i18n.t().nav[l.key] }}
+          <span class="material-symbols-outlined text-brand-gold/70 rtl:rotate-180">chevron_right</span>
+        </a>
+      </li>
+      <li class="grid gap-2 pt-2 sm:grid-cols-2">
+        <button type="button" class="btn-gold w-full" (click)="getApp()">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          {{ appLabel }}
+        </button>
+        <button type="button" class="btn-ghost-light w-full" (click)="contact()">
+          <span class="material-symbols-outlined text-[18px] text-brand-gold-light">support_agent</span>
+          {{ i18n.t().nav.cta }}
+        </button>
+      </li>
+    </ul>
+  </div>
+</header>

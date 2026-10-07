@@ -1,0 +1,34 @@
+<div class="app-select" [class.is-open]="open" [class.is-disabled]="disabled" [class.has-value]="hasValue" [class.is-invalid]="invalid">
+  <button
+    #trigger
+    type="button"
+    class="select-trigger"
+    [attr.id]="inputId || null"
+    [disabled]="disabled"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="open"
+    [attr.aria-invalid]="invalid"
+    (click)="toggle()"
+    (keydown)="onTriggerKeydown($event)"
+  >
+    <span class="select-label">{{ selectedLabel }}</span>
+    <span class="select-chevron material-symbols-outlined">expand_more</span>
+  </button>
+
+  <div #menu class="select-menu" *ngIf="open" role="listbox" [attr.dir]="dir" [class.opens-up]="menuStyle['transformOrigin'] === 'bottom'" [ngStyle]="menuStyle">
+    <button
+      type="button"
+      role="option"
+      class="select-option"
+      *ngFor="let opt of options; let i = index"
+      [class.is-active]="opt.value === value"
+      [class.is-focused]="i === activeIndex"
+      [attr.aria-selected]="opt.value === value"
+      (mouseenter)="activeIndex = i"
+      (click)="choose(opt)"
+    >
+      <span class="option-label">{{ opt.label }}</span>
+      <span class="material-symbols-outlined check" *ngIf="opt.value === value">check</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,104 @@
+<section id="top" class="grain relative isolate overflow-hidden bg-brand-deeper pb-16 pt-24 text-white sm:pb-32 sm:pt-36 lg:pb-40 lg:pt-44">
+  <!-- الخلفية -->
+  <div class="bg-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"></div>
+  <div class="animate-aurora absolute -top-40 start-1/2 -z-10 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-brand-light/40 blur-[120px] rtl:translate-x-1/2"></div>
+  <div class="animate-aurora absolute -bottom-32 end-0 -z-10 h-80 w-80 rounded-full bg-brand-gold/20 blur-[110px] [animation-delay:-9s]"></div>
+  <div class="absolute start-[8%] top-1/3 -z-10 h-56 w-56 rounded-full bg-brand-gold/10 blur-[90px]"></div>
+  <div class="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent"></div>
+  <div class="absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-b from-transparent to-brand-deeper"></div>
+
+  <div class="container-x relative z-[1] grid items-center gap-10 sm:gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="text-center lg:text-start">
+      <span class="eyebrow-dark px-3.5 py-1.5 text-[0.7rem] shadow-[0_0_0_4px_rgba(200,162,75,0.05)] sm:px-4 sm:text-xs" style="animation: heroIn .8s both">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-gold opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-brand-gold"></span>
+        </span>
+        {{ i18n.t().hero.badge }}
+      </span>
+
+      <h1 class="mt-6 text-[2.35rem] font-bold leading-[1.3] sm:mt-7 sm:leading-[1.3] tracking-tight drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-[3rem] lg:text-[3.6rem] xl:text-[4rem]" style="animation: heroIn .8s .1s both">
+        {{ i18n.t().hero.titleA }}
+        <span class="text-gold-shimmer block pb-2">{{ i18n.t().hero.titleB }}</span>
+      </h1>
+
+      <div class="mx-auto mt-2 flex w-fit items-center gap-2 lg:mx-0" style="animation: heroIn .8s .15s both" aria-hidden="true">
+        <span class="h-px w-12 bg-gradient-to-r from-transparent to-brand-gold/80 rtl:bg-gradient-to-l"></span>
+        <span class="h-1.5 w-1.5 rotate-45 bg-brand-gold"></span>
+        <span class="h-px w-24 bg-gradient-to-r from-brand-gold/80 to-transparent rtl:bg-gradient-to-l"></span>
+      </div>
+
+      <p class="mx-auto mt-5 max-w-xl text-[0.95rem] leading-7 text-white/70 sm:mt-6 sm:text-lg sm:leading-8 lg:mx-0" style="animation: heroIn .8s .2s both">
+        {{ i18n.t().hero.subtitle }}
+      </p>
+
+      <div class="mt-8 flex flex-col items-center gap-2.5 sm:mt-9 sm:flex-row sm:gap-3 sm:justify-center lg:justify-start" style="animation: heroIn .8s .3s both">
+        <button type="button" class="btn-gold group relative h-14 w-full overflow-hidden px-8 text-base shadow-[0_18px_40px_-12px_rgba(200,162,75,0.65)] sm:w-auto" (click)="app.launch()">
+          <span aria-hidden="true" class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full"></span>
+          <span class="material-symbols-outlined relative text-[22px] transition-transform duration-300 group-hover:-translate-y-0.5">download</span>
+          <span class="relative">{{ i18n.t().hero.primary }}</span>
+        </button>
+        <a href="#features" class="btn-ghost-light group h-12 w-full px-8 text-sm sm:h-14 sm:w-auto sm:text-base">
+          {{ i18n.t().hero.secondary }}
+          <span class="material-symbols-outlined text-[20px] transition-transform duration-300 group-hover:translate-y-0.5">arrow_downward</span>
+        </a>
+      </div>
+
+      <div class="mt-4 grid grid-cols-2 gap-2.5 max-sm:[&_app-store-badge>button]:w-full max-sm:[&_app-store-badge>button]:min-w-0 max-sm:[&_app-store-badge>button]:px-3 sm:mt-5 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 lg:justify-start" style="animation: heroIn .8s .35s both">
+        <app-store-badge store="ios" />
+        <app-store-badge store="android" />
+        <button
+          *ngIf="!app.isMobile && app.hasApps"
+          type="button"
+          (click)="app.launch()"
+          class="group hidden h-14 items-center gap-2.5 rounded-2xl border border-white/15 bg-white/5 px-4 text-start text-white backdrop-blur transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-brand-gold/50 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-gold/30 active:translate-y-0 active:scale-[0.98] lg:inline-flex"
+        >
+          <span class="material-symbols-outlined text-[26px] text-brand-gold-light transition-transform duration-300 group-hover:scale-110">qr_code_2</span>
+          <span class="text-xs font-bold leading-5 text-white/70">{{ i18n.t().app.scan }}</span>
+        </button>
+      </div>
+
+      <ul class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-white/70 sm:mt-10 sm:gap-x-6 sm:gap-y-3 sm:text-sm sm:text-white/60 lg:justify-start" style="animation: heroIn .8s .4s both">
+        <li *ngFor="let item of i18n.t().hero.trust" class="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 backdrop-blur sm:gap-2 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none">
+          <span class="material-symbols-outlined icon-fill text-[16px] text-brand-gold sm:text-[18px]">verified</span>
+          {{ item }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- موكاب التطبيق -->
+    <div class="relative mx-auto w-full max-w-[17.5rem] max-sm:mt-2 max-sm:h-[28rem] max-sm:overflow-hidden max-sm:pt-6 max-sm:[mask-image:linear-gradient(to_bottom,black_55%,transparent_92%)] sm:max-w-[20rem]" style="animation: heroIn 1s .25s both" aria-hidden="true">
+     <div class="relative" [appTilt]="10">
+      <div class="absolute inset-6 -z-10 rounded-[3rem] bg-brand-gold/30 blur-3xl"></div>
+      <div class="absolute -inset-10 -z-10 rounded-full border border-brand-gold/10"></div>
+      <div class="absolute -inset-20 -z-10 rounded-full border border-white/5"></div>
+
+      <div class="animate-float gold-frame relative rounded-[2.75rem] bg-gradient-to-b from-white/15 to-white/5 p-2.5 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur">
+        <app-phone-mock />
+      </div>
+
+      <!-- كارت عائم -->
+      <div class="absolute -end-16 bottom-28 hidden items-center gap-3 rounded-2xl border border-white/60 bg-white/95 p-3 pe-4 text-slate-800 shadow-card-hover backdrop-blur sm:flex" style="animation: float 6s 1.5s ease-in-out infinite">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-gold/15 text-brand-gold-dark">
+          <span class="material-symbols-outlined icon-fill text-[20px]">request_quote</span>
+        </span>
+        <div>
+          <p class="text-xs font-black">{{ i18n.t().hero.mock.quote }}</p>
+          <p class="text-[0.65rem] font-bold text-slate-400">{{ i18n.t().hero.mock.quoteSub }}</p>
+        </div>
+      </div>
+     </div>
+    </div>
+  </div>
+
+  <a
+    href="#features"
+    class="group absolute bottom-24 start-1/2 z-[1] hidden -translate-x-1/2 flex-col items-center gap-2 text-[0.65rem] font-bold tracking-[0.3em] text-white/40 transition-colors duration-300 hover:text-brand-gold-light focus-visible:outline-none focus-visible:text-brand-gold-light rtl:translate-x-1/2 lg:flex"
+    [attr.aria-label]="i18n.t().nav.features"
+  >
+    <span class="relative h-10 w-6 rounded-full border border-current">
+      <span class="absolute start-1/2 top-2 h-2 w-0.5 -translate-x-1/2 animate-bounce rounded-full bg-brand-gold rtl:translate-x-1/2"></span>
+    </span>
+    SCROLL
+  </a>
+</section>
