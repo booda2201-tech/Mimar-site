@@ -45,6 +45,14 @@
       </button>
       <button
         type="button"
+        class="btn-ghost-light group hidden h-10 border-brand-gold/40 px-4 hover:border-brand-gold lg:inline-flex"
+        (click)="advertise()"
+      >
+        <span class="material-symbols-outlined text-[18px] text-brand-gold-light transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110">campaign</span>
+        {{ i18n.t().advertise.nav }}
+      </button>
+      <button
+        type="button"
         class="btn-ghost-light hidden h-10 w-10 px-0 xl:inline-flex"
         (click)="contact()"
         [title]="i18n.t().nav.cta"
@@ -97,6 +105,10 @@
         <button type="button" class="btn-ghost-light w-full" (click)="contact()">
           <span class="material-symbols-outlined text-[18px] text-brand-gold-light">support_agent</span>
           {{ i18n.t().nav.cta }}
+        </button>
+        <button type="button" class="btn-ghost-light w-full border-brand-gold/40 hover:border-brand-gold sm:col-span-2" (click)="advertise()">
+          <span class="material-symbols-outlined text-[18px] text-brand-gold-light">campaign</span>
+          {{ i18n.t().advertise.title }}
         </button>
       </li>
     </ul>

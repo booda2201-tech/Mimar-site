@@ -58,3 +58,13 @@ export const LEAD_ENDPOINTS = {
 } as const;
 
 export type LeadKind = keyof typeof LEAD_ENDPOINTS;
+
+/**
+ * طلبات إعلانات التجار داخل التطبيق (عامة، من غير توكن).
+ * submit: multipart — ApplicantName, PhoneNumber, CompanyName, CompanySummary, AdTitle, Image, FacebookUrl, InstagramUrl, WebsiteUrl
+ * track: ?requestNumber=M-10001&phone=...
+ */
+export const AD_ENDPOINTS = {
+  submit: '/api/AdvertisementRequests',
+  track: '/api/AdvertisementRequests/track',
+} as const;

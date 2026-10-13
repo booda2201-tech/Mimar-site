@@ -237,6 +237,15 @@ body::-webkit-scrollbar {
   .field-error {
     @apply mt-1.5 flex items-center gap-1 text-xs font-bold text-red-600;
   }
+
+  /* عناوين خطوات النماذج الطويلة (طلب إعلان) */
+  .step-legend {
+    @apply flex items-center gap-2.5 text-base font-black text-brand-dark;
+  }
+
+  .step-num {
+    @apply grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-primary to-brand-dark text-xs font-black text-brand-gold-light shadow-brand;
+  }
 }
 
 .text-gold-gradient {

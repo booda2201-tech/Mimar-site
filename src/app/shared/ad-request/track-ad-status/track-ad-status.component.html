@@ -1,0 +1,197 @@
+<!-- نتيجة الاستعلام -->
+<div *ngIf="ad() as ad; else formTpl" style="animation: heroIn 0.45s both">
+  <div class="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_20px_45px_-30px_rgba(11,74,58,0.45)]">
+    <!-- رأس الكارت -->
+    <div class="flex flex-wrap items-start justify-between gap-3 border-b border-slate-100 p-4 sm:p-5">
+      <div class="flex min-w-0 items-center gap-3">
+        <span class="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-brand-deeper text-brand-gold-light ring-1 ring-black/5">
+          <img *ngIf="ad.imageUrl; else noBanner" [src]="ad.imageUrl" alt="" class="h-full w-full object-cover" />
+          <ng-template #noBanner><span class="material-symbols-outlined text-[22px]">campaign</span></ng-template>
+        </span>
+        <div class="min-w-0">
+          <p class="truncate text-base font-black text-brand-dark">{{ ad.adTitle }}</p>
+          <p dir="ltr" class="mt-0.5 font-mono text-xs font-bold text-slate-400 rtl:text-end">{{ ad.trackingCode }}</p>
+        </div>
+      </div>
+      <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black ring-1" [ngClass]="style(ad).badge">
+        <span class="relative flex h-2 w-2">
+          <span *ngIf="ad.status === 'pending'" class="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60" [ngClass]="style(ad).dot"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full" [ngClass]="style(ad).dot"></span>
+        </span>
+        {{ t.track.status[statusView(ad)] }}
+      </span>
+    </div>
+
+    <!-- مراحل الطلب -->
+    <ol class="grid grid-cols-3 px-4 pb-1 pt-5 sm:px-6" [attr.aria-label]="t.track.title">
+      <li *ngFor="let step of [t.track.timeline.submitted, t.track.timeline.review, t.track.timeline.decision]; let i = index; let last = last" class="relative flex flex-col items-center text-center">
+        <span
+          *ngIf="!last"
+          aria-hidden="true"
+          class="absolute start-0 top-4 h-0.5 w-full translate-x-1/2 rtl:-translate-x-1/2"
+          [ngClass]="i < stage(ad.status) ? 'bg-gradient-to-r from-brand-primary to-brand-gold rtl:bg-gradient-to-l' : 'bg-slate-200'"
+        ></span>
+        <span
+          class="relative z-10 grid h-8 w-8 place-items-center rounded-full ring-4 ring-white transition-all duration-500"
+          [ngClass]="i < stage(ad.status)
+            ? 'bg-brand-primary text-white'
+            : i === stage(ad.status) && ad.status === 'pending'
+              ? 'bg-amber-400 text-amber-950 shadow-[0_0_0_6px_rgba(251,191,36,0.18)]'
+              : i === 2 && ad.status === 'approved'
+                ? 'bg-emerald-500 text-white'
+                : i === 2 && ad.status === 'rejected'
+                  ? 'bg-red-500 text-white'
+                  : 'bg-slate-100 text-slate-400'"
+        >
+          <span class="material-symbols-outlined text-[17px]">{{
+            i < stage(ad.status) ? 'check' : i === 2 && ad.status === 'approved' ? 'done_all' : i === 2 && ad.status === 'rejected' ? 'close' : i === 1 ? 'manage_search' : 'flag'
+          }}</span>
+        </span>
+        <span class="mt-2 text-[0.72rem] font-extrabold" [ngClass]="i <= stage(ad.status) ? 'text-brand-dark' : 'text-slate-400'">{{ step }}</span>
+      </li>
+    </ol>
+
+    <!-- رسالة الحالة -->
+    <div class="p-4 sm:p-5">
+      <div class="rounded-2xl border p-4" [ngClass]="style(ad).panel">
+        <div class="flex items-start gap-3">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl" [ngClass]="style(ad).iconBox">
+            <span class="material-symbols-outlined text-[22px]">{{ style(ad).icon }}</span>
+          </span>
+          <p class="pt-1.5 text-sm font-bold leading-7 text-slate-700">
+            <ng-container [ngSwitch]="ad.status">
+              <ng-container *ngSwitchCase="'pending'">{{ t.track.messages.pending }}</ng-container>
+              <ng-container *ngSwitchCase="'approved'">{{ approvedText(ad) }}</ng-container>
+              <ng-container *ngSwitchCase="'rejected'">{{ t.track.messages.rejected }}</ng-container>
+            </ng-container>
+          </p>
+        </div>
+
+        <div *ngIf="ad.status === 'approved' && ad.reviewedAt && ad.activeUntil && !isExpired(ad)" class="mt-4 grid grid-cols-2 gap-2">
+          <div class="rounded-xl bg-white p-3 ring-1 ring-emerald-100">
+            <p class="text-[0.7rem] font-bold text-slate-400">{{ t.track.from }}</p>
+            <p class="mt-0.5 text-sm font-black text-emerald-700">{{ formatDate(ad.reviewedAt) }}</p>
+          </div>
+          <div class="rounded-xl bg-white p-3 ring-1 ring-emerald-100">
+            <p class="text-[0.7rem] font-bold text-slate-400">{{ t.track.to }}</p>
+            <p class="mt-0.5 text-sm font-black text-emerald-700">{{ formatDate(ad.activeUntil) }}</p>
+          </div>
+        </div>
+
+        <ng-container *ngIf="ad.status === 'rejected'">
+          <div class="mt-4 rounded-xl border-s-4 border-red-400 bg-white p-3.5 ring-1 ring-red-100">
+            <p class="text-[0.7rem] font-black text-red-500">{{ t.track.reason }}</p>
+            <p class="mt-1 text-sm font-bold leading-7 text-slate-800">{{ ad.rejectionReason || '—' }}</p>
+          </div>
+          <button type="button" class="btn-gold mt-4 w-full" (click)="resubmit(ad)">
+            <span class="material-symbols-outlined text-[18px]">edit_square</span>
+            {{ t.track.resubmit }}
+          </button>
+        </ng-container>
+      </div>
+
+      <!-- تفاصيل الطلب -->
+      <dl *ngIf="details() as items" class="mt-4 grid grid-cols-2 gap-2" [ngClass]="items.length > 3 ? 'sm:grid-cols-4' : items.length === 3 ? 'sm:grid-cols-3' : ''">
+        <div
+          *ngFor="let item of items; let last = last"
+          class="min-w-0 rounded-xl bg-brand-bg/70 p-3 transition-colors duration-300 hover:bg-brand-bg"
+          [ngClass]="last && items.length % 2 ? 'col-span-2 sm:col-span-1' : ''"
+        >
+          <dt class="text-[0.68rem] font-bold text-slate-400">{{ item.label }}</dt>
+          <dd class="mt-0.5 truncate text-[0.8rem] font-extrabold leading-5 text-brand-dark" [title]="item.value">{{ item.value }}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <button type="button" class="mx-auto mt-5 flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-extrabold text-brand-primary transition-all duration-300 hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30" (click)="reset()">
+    <span class="material-symbols-outlined text-[18px]">refresh</span>
+    {{ t.track.another }}
+  </button>
+</div>
+
+<!-- نموذج الاستعلام -->
+<ng-template #formTpl>
+  <form id="track-form" [formGroup]="form" (ngSubmit)="submit()" novalidate style="animation: heroIn 0.4s both">
+    <div class="flex items-start gap-3">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] text-brand-primary ring-1 ring-brand-primary/10">
+        <span class="material-symbols-outlined text-[24px]">travel_explore</span>
+      </span>
+      <div>
+        <h3 class="text-lg font-black text-brand-dark">{{ t.track.title }}</h3>
+        <p class="mt-0.5 text-sm leading-6 text-slate-500">{{ t.track.text }}</p>
+      </div>
+    </div>
+
+    <div class="mt-6 grid gap-x-4 gap-y-5 sm:grid-cols-2">
+      <div>
+        <label class="field-label" for="track-code">
+          {{ t.fields.code }}
+          <button
+            *ngIf="canUseLast"
+            type="button"
+            (click)="useLast()"
+            class="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-extrabold text-brand-gold-dark transition-all duration-300 hover:bg-brand-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40"
+          >
+            <span class="material-symbols-outlined text-[14px]">history</span>
+            {{ t.track.useLast }}
+          </button>
+        </label>
+        <input
+          id="track-code"
+          dir="ltr"
+          formControlName="code"
+          [placeholder]="t.placeholders.code"
+          (blur)="normalize()"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+          class="field-input font-mono uppercase tracking-wider"
+          [class.text-end]="i18n.isAr()"
+          [class.is-invalid]="showError('code')"
+          [attr.aria-invalid]="showError('code')"
+        />
+        <p *ngIf="showError('code')" class="field-error"><span class="material-symbols-outlined text-[14px]">error</span>{{ errorText('code') }}</p>
+      </div>
+      <div>
+        <label class="field-label" for="track-phone">{{ t.fields.trackPhone }}</label>
+        <input
+          id="track-phone"
+          type="tel"
+          dir="ltr"
+          formControlName="phone"
+          [placeholder]="t.placeholders.phone"
+          autocomplete="tel"
+          class="field-input"
+          [class.text-end]="i18n.isAr()"
+          [class.is-invalid]="showError('phone')"
+          [attr.aria-invalid]="showError('phone')"
+        />
+        <p *ngIf="showError('phone')" class="field-error"><span class="material-symbols-outlined text-[14px]">error</span>{{ errorText('phone') }}</p>
+      </div>
+    </div>
+
+    <div
+      *ngIf="error() as err"
+      role="alert"
+      class="mt-5 flex items-start gap-2.5 rounded-xl border p-3.5 text-sm font-bold leading-6"
+      [ngClass]="err === 'network' ? 'border-red-200 bg-red-50 text-red-700' : 'border-amber-200 bg-amber-50 text-amber-800'"
+      style="animation: heroIn 0.3s both"
+    >
+      <span class="material-symbols-outlined text-[18px]">{{ err === 'network' ? 'wifi_off' : 'search_off' }}</span>
+      {{ errorMessage() }}
+    </div>
+
+    <div class="mt-7 flex flex-col-reverse items-center gap-4 border-t border-slate-100 pt-6 sm:flex-row sm:justify-between">
+      <p class="flex items-start gap-2 text-xs font-semibold leading-6 text-slate-400">
+        <span class="material-symbols-outlined text-[16px]">lock</span>
+        {{ t.track.secure }}
+      </p>
+      <button type="submit" class="btn-primary w-full shrink-0 px-8 sm:w-auto" [disabled]="loading()">
+        <span *ngIf="loading(); else searchIcon" class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"></span>
+        <ng-template #searchIcon><span class="material-symbols-outlined text-[18px]">search</span></ng-template>
+        {{ loading() ? t.track.searching : t.track.submit }}
+      </button>
+    </div>
+  </form>
+</ng-template>

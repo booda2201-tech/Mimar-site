@@ -4,6 +4,7 @@ import { LangService } from '../../core/i18n/lang.service';
 import { LeadService } from '../../core/lead.service';
 import { SITE } from '../../core/site.config';
 import { AppLinkService } from '../../core/app-link.service';
+import { AdService } from '../../core/services/ad.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,7 @@ export class NavbarComponent {
   readonly i18n = inject(LangService);
   private leads = inject(LeadService);
   private app = inject(AppLinkService);
+  private ads = inject(AdService);
   readonly site = SITE;
 
   scrolled = false;
@@ -54,6 +56,11 @@ export class NavbarComponent {
 
   get appLabel(): string {
     return this.app.isMobile && this.app.hasApps ? this.i18n.t().app.open : this.i18n.t().app.cta;
+  }
+
+  advertise(): void {
+    this.closeMenu();
+    this.ads.open('create');
   }
 
   contact(): void {
