@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild, inject, signal } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { LangService } from '../../core/i18n/lang.service';
 import { LeadService } from '../../core/lead.service';
 import { LeadKind, SITE } from '../../core/site.config';
@@ -8,7 +9,7 @@ import { AppLinkService } from '../../core/app-link.service';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, RouterLink],
   template: `
     <footer class="grain relative isolate overflow-hidden bg-brand-deeper text-white">
       <div class="h-px bg-gradient-to-r from-transparent via-brand-gold-light to-transparent"></div>
@@ -113,7 +114,14 @@ import { AppLinkService } from '../../core/app-link.service';
       <div class="relative z-[1] border-t border-white/10">
         <div class="container-x flex flex-col items-center justify-between gap-3 pb-24 pt-5 text-xs font-semibold text-white/45 sm:flex-row sm:py-5">
           <p>© {{ year }} {{ i18n.isAr() ? 'معمار' : 'MIMAR' }} — {{ i18n.t().footer.rights }}</p>
-          <div class="flex items-center gap-4">
+          <div class="flex flex-wrap items-center justify-center gap-4">
+            <a
+              routerLink="/privacy"
+              class="inline-flex items-center gap-1 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40"
+            >
+              <span class="material-symbols-outlined text-[16px]">shield_person</span>
+              {{ i18n.t().footer.privacy }}
+            </a>
             <span>{{ i18n.t().footer.cr }}: <span dir="ltr">{{ site.commercialRegistration }}</span></span>
             <a href="#top" class="inline-flex items-center gap-1 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-white/5 hover:text-white">
               <span class="material-symbols-outlined text-[16px]">arrow_upward</span>

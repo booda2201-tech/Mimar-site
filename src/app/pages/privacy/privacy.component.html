@@ -1,0 +1,556 @@
+<div dir="ltr" lang="en" class="min-h-screen bg-brand-bg text-left">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-brand-deeper/95 backdrop-blur-xl">
+    <div class="container-x flex h-16 items-center justify-between gap-4">
+      <a
+        routerLink="/"
+        class="group flex items-center gap-3 rounded-xl transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-gold/40"
+        aria-label="M3mar home"
+      >
+        <span class="grid h-10 w-10 place-items-center overflow-hidden rounded-xl bg-white p-1 shadow-[0_8px_24px_-6px_rgba(200,162,75,0.45)] ring-1 ring-brand-gold/40 transition-transform duration-300 ease-in-out group-hover:scale-105">
+          <img [src]="logo" alt="" class="h-full w-full object-contain" />
+        </span>
+        <span class="leading-tight">
+          <span class="block text-base font-black text-white">M3mar</span>
+          <span class="block text-[0.68rem] font-semibold text-white/50">by Al Hendal Group</span>
+        </span>
+      </a>
+      <a routerLink="/" class="btn-ghost-light group h-10 px-4 text-xs sm:text-sm">
+        <span class="material-symbols-outlined text-[18px] transition-transform duration-300 ease-in-out group-hover:-translate-x-0.5">arrow_back</span>
+        Back to home
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="grain relative isolate overflow-hidden bg-gradient-to-b from-brand-deeper via-brand-dark to-brand-primary pb-24 pt-14 text-white sm:pb-28 sm:pt-20">
+    <div aria-hidden="true" class="absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full bg-brand-gold/20 blur-[120px]"></div>
+    <div aria-hidden="true" class="absolute -bottom-32 left-1/4 -z-10 h-80 w-80 rounded-full bg-brand-light/30 blur-[120px]"></div>
+    <div class="container-x">
+      <span class="eyebrow-dark">
+        <span class="material-symbols-outlined text-[16px]">shield_person</span>
+        Legal
+      </span>
+      <h1 class="mt-5 text-4xl font-black tracking-tight sm:text-5xl">Privacy Policy</h1>
+      <p class="mt-4 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
+        How the M3mar app collects, uses, protects, and deletes your personal data when you buy construction materials, place orders, request
+        quotations, and build material collections.
+      </p>
+      <ul class="mt-8 flex flex-wrap gap-2.5 text-xs font-bold sm:text-sm">
+        <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-white/85 backdrop-blur">
+          <span class="material-symbols-outlined text-[16px] text-brand-gold-light">event</span>
+          Effective {{ effectiveDate }}
+        </li>
+        <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-white/85 backdrop-blur">
+          <span class="material-symbols-outlined text-[16px] text-brand-gold-light">android</span>
+          <span class="font-mono font-semibold">{{ packageName }}</span>
+        </li>
+        <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-white/85 backdrop-blur">
+          <span class="material-symbols-outlined text-[16px] text-brand-gold-light">apartment</span>
+          Operated by Al Hendal Group
+        </li>
+        <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-white/85 backdrop-blur">
+          <span class="material-symbols-outlined text-[16px] text-brand-gold-light">gavel</span>
+          Saudi PDPL (SDAIA)
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- At a glance -->
+  <div class="container-x relative z-[1] -mt-14 sm:-mt-16">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="rounded-2xl bg-white p-5 shadow-card ring-1 ring-black/[0.04] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-primary/[0.06] text-brand-primary">
+          <span class="material-symbols-outlined text-[22px]">fact_check</span>
+        </span>
+        <p class="mt-3 text-sm font-black text-brand-dark">Only what the service needs</p>
+        <p class="mt-1 text-[0.82rem] leading-6 text-slate-500">Account details, delivery address, orders, RFQs, and the cover photos you choose.</p>
+      </div>
+      <div class="rounded-2xl bg-white p-5 shadow-card ring-1 ring-black/[0.04] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-primary/[0.06] text-brand-primary">
+          <span class="material-symbols-outlined text-[22px]">location_off</span>
+        </span>
+        <p class="mt-3 text-sm font-black text-brand-dark">No location tracking</p>
+        <p class="mt-1 text-[0.82rem] leading-6 text-slate-500">Addresses are typed manually. No GPS and no location permission.</p>
+      </div>
+      <div class="rounded-2xl bg-white p-5 shadow-card ring-1 ring-black/[0.04] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-primary/[0.06] text-brand-primary">
+          <span class="material-symbols-outlined text-[22px]">credit_card_off</span>
+        </span>
+        <p class="mt-3 text-sm font-black text-brand-dark">No card data</p>
+        <p class="mt-1 text-[0.82rem] leading-6 text-slate-500">Card numbers and CVV codes are never collected or processed in the app.</p>
+      </div>
+      <a
+        href="/privacy#delete-account"
+        (click)="goTo($event, 'delete-account')"
+        class="group rounded-2xl bg-white p-5 shadow-card ring-1 ring-brand-gold/30 transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md hover:ring-brand-gold/60 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-gold/40 active:scale-[0.99]"
+      >
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-gold/15 text-brand-gold-dark">
+          <span class="material-symbols-outlined text-[22px]">delete_forever</span>
+        </span>
+        <p class="mt-3 flex items-center gap-1 text-sm font-black text-brand-dark">
+          Delete anytime
+          <span class="material-symbols-outlined text-[16px] text-brand-gold-dark transition-transform duration-300 ease-in-out group-hover:translate-x-0.5">arrow_forward</span>
+        </p>
+        <p class="mt-1 text-[0.82rem] leading-6 text-slate-500">Clear this device on logout, or request full erasure by email.</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="container-x grid gap-8 py-10 sm:py-14 lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-12">
+    <!-- Table of contents -->
+    <aside class="lg:sticky lg:top-24 lg:self-start">
+      <details class="group rounded-2xl bg-white shadow-card ring-1 ring-black/[0.04] lg:hidden">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-3 rounded-2xl px-5 py-4 text-sm font-black text-brand-dark transition-colors duration-300 ease-in-out hover:bg-brand-bg/60 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15 [&::-webkit-details-marker]:hidden">
+          <span class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-brand-primary">toc</span>
+            On this page
+          </span>
+          <span class="material-symbols-outlined text-[20px] text-slate-400 transition-transform duration-300 ease-in-out group-open:rotate-180">expand_more</span>
+        </summary>
+        <ol class="space-y-0.5 border-t border-slate-100 p-2">
+          <li *ngFor="let item of toc">
+            <a
+              [href]="'/privacy#' + item.id"
+              (click)="goTo($event, item.id)"
+              class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/20"
+              [ngClass]="active() === item.id ? 'bg-brand-primary/[0.06] text-brand-primary' : 'text-slate-600 hover:bg-brand-bg hover:text-brand-dark'"
+            >
+              <span class="w-5 font-mono text-[0.7rem] text-slate-400">{{ number(item.id) }}</span>
+              {{ item.label }}
+            </a>
+          </li>
+        </ol>
+      </details>
+
+      <nav aria-label="Privacy policy sections" class="hidden lg:block">
+        <p class="px-3 text-[0.7rem] font-black uppercase tracking-[0.18em] text-slate-400">On this page</p>
+        <ol class="mt-3 space-y-0.5 border-l border-slate-200">
+          <li *ngFor="let item of toc">
+            <a
+              [href]="'/privacy#' + item.id"
+              (click)="goTo($event, item.id)"
+              [attr.aria-current]="active() === item.id ? 'location' : null"
+              class="-ml-px flex border-l-2 py-1.5 pl-4 pr-2 text-[0.84rem] font-semibold leading-6 transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/20"
+              [ngClass]="active() === item.id ? 'border-brand-gold text-brand-primary' : 'border-transparent text-slate-500 hover:border-slate-300 hover:text-brand-dark'"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        </ol>
+        <a
+          [href]="'mailto:' + email"
+          class="mt-6 flex items-center gap-2 rounded-xl border border-brand-primary/10 bg-white px-3 py-2.5 text-[0.8rem] font-bold text-brand-primary shadow-sm transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:border-brand-primary/30 hover:shadow-md focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15"
+        >
+          <span class="material-symbols-outlined text-[18px]">mail</span>
+          {{ email }}
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Policy -->
+    <article class="rounded-3xl bg-white p-6 shadow-card ring-1 ring-black/[0.04] sm:p-10">
+      <div class="space-y-12">
+        <!-- 01 -->
+        <section id="overview" aria-labelledby="overview-title">
+          <h2 id="overview-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('overview') }}</span>
+            Overview
+          </h2>
+          <div class="mt-5 space-y-4 text-[0.95rem] leading-8 text-slate-600">
+            <p>
+              This Privacy Policy explains how <strong class="font-bold text-brand-dark">Al Hendal Group</strong> ("we", "us", "our") handles personal data
+              in the <strong class="font-bold text-brand-dark">M3mar</strong> mobile application (package <code class="rounded-md bg-brand-bg px-1.5 py-0.5 font-mono text-[0.85em] text-brand-primary">{{ packageName }}</code>).
+            </p>
+            <p>
+              M3mar lets you browse and order construction materials, submit and negotiate requests for quotation (RFQs), and organize materials into
+              collections. This policy covers all of these features. By creating an account or using the app, you acknowledge the practices described here.
+            </p>
+          </div>
+        </section>
+
+        <!-- 02 -->
+        <section id="information-we-collect" aria-labelledby="collect-title" class="border-t border-slate-100 pt-12">
+          <h2 id="collect-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('information-we-collect') }}</span>
+            Information We Collect
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">
+            We collect only the information you provide to us while using the app. We do not collect data from your device in the background.
+          </p>
+          <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+            <li
+              *ngFor="let item of collected"
+              class="group flex gap-3.5 rounded-2xl border border-slate-200/80 bg-brand-bg/50 p-4 transition-all duration-300 ease-in-out hover:border-brand-primary/20 hover:bg-white hover:shadow-md"
+            >
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-brand-primary shadow-sm ring-1 ring-brand-primary/10 transition-colors duration-300 group-hover:text-brand-gold-dark">
+                <span class="material-symbols-outlined text-[20px]">{{ item.icon }}</span>
+              </span>
+              <span>
+                <span class="block text-sm font-black text-brand-dark">{{ item.title }}</span>
+                <span class="mt-1 block text-[0.84rem] leading-6 text-slate-500">{{ item.text }}</span>
+              </span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 03 -->
+        <section id="not-collected" aria-labelledby="not-collected-title" class="border-t border-slate-100 pt-12">
+          <h2 id="not-collected-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('not-collected') }}</span>
+            What We Do Not Collect
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">The M3mar app is built to work without access to sensitive device data.</p>
+          <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <li *ngFor="let item of notCollected" class="rounded-2xl border border-emerald-100 bg-emerald-50/40 p-4 transition-all duration-300 ease-in-out hover:border-emerald-200 hover:shadow-sm">
+              <span class="flex items-center gap-2 text-sm font-black text-emerald-800">
+                <span class="material-symbols-outlined text-[20px] text-emerald-600">{{ item.icon }}</span>
+                {{ item.title }}
+              </span>
+              <span class="mt-1.5 block text-[0.84rem] leading-6 text-slate-600">{{ item.text }}</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 04 -->
+        <section id="how-we-use" aria-labelledby="use-title" class="border-t border-slate-100 pt-12">
+          <h2 id="use-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('how-we-use') }}</span>
+            How We Use Your Information
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">We use your personal data only to provide and protect the M3mar service:</p>
+          <ul class="mt-4 space-y-2.5">
+            <li *ngFor="let use of uses" class="flex items-start gap-3 text-[0.95rem] leading-7 text-slate-600">
+              <span class="material-symbols-outlined mt-0.5 text-[20px] text-brand-gold-dark">check_circle</span>
+              {{ use }}
+            </li>
+          </ul>
+          <p class="mt-5 rounded-2xl border-l-4 border-brand-gold bg-brand-gold/[0.07] p-4 text-[0.92rem] font-semibold leading-7 text-brand-dark">
+            We do not sell or rent your personal data, and we do not use it for advertising or profiling.
+          </p>
+        </section>
+
+        <!-- 05 -->
+        <section id="permissions" aria-labelledby="permissions-title" class="border-t border-slate-100 pt-12">
+          <h2 id="permissions-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('permissions') }}</span>
+            Device Permissions
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">
+            The app requests only two technical permissions. Everything else listed below is never requested.
+          </p>
+          <div class="mt-6 overflow-hidden rounded-2xl border border-slate-200/80">
+            <table class="w-full text-left text-sm">
+              <thead class="hidden bg-brand-bg/70 text-[0.72rem] font-black uppercase tracking-wider text-slate-500 sm:table-header-group">
+                <tr>
+                  <th scope="col" class="px-4 py-3">Permission</th>
+                  <th scope="col" class="px-4 py-3">Status</th>
+                  <th scope="col" class="px-4 py-3">Why</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                <tr *ngFor="let p of permissions" class="block transition-colors duration-300 ease-in-out hover:bg-brand-bg/40 sm:table-row">
+                  <th scope="row" class="block px-4 pb-1 pt-4 font-black text-brand-dark sm:table-cell sm:py-4 sm:align-top">
+                    <span class="flex items-center gap-2.5">
+                      <span class="material-symbols-outlined text-[20px]" [ngClass]="p.used ? 'text-brand-primary' : 'text-slate-400'">{{ p.icon }}</span>
+                      {{ p.name }}
+                    </span>
+                  </th>
+                  <td class="block px-4 py-1 sm:table-cell sm:py-4 sm:align-top">
+                    <span
+                      class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-black ring-1"
+                      [ngClass]="p.used ? 'bg-brand-primary/[0.06] text-brand-primary ring-brand-primary/15' : 'bg-slate-100 text-slate-500 ring-slate-200'"
+                    >
+                      <span class="h-1.5 w-1.5 rounded-full" [ngClass]="p.used ? 'bg-brand-gold' : 'bg-slate-400'"></span>
+                      {{ p.status }}
+                    </span>
+                  </td>
+                  <td class="block px-4 pb-4 pt-1 leading-6 text-slate-600 sm:table-cell sm:py-4 sm:align-top">{{ p.purpose }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 06 -->
+        <section id="payments" aria-labelledby="payments-title" class="border-t border-slate-100 pt-12">
+          <h2 id="payments-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('payments') }}</span>
+            Payments
+          </h2>
+          <div class="mt-5 flex gap-4 rounded-2xl border border-slate-200/80 bg-brand-bg/50 p-5">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white text-brand-primary shadow-sm ring-1 ring-brand-primary/10">
+              <span class="material-symbols-outlined text-[22px]">credit_card_off</span>
+            </span>
+            <p class="text-[0.95rem] leading-8 text-slate-600">
+              The M3mar app does not collect, process, or store credit or debit card numbers or CVV codes. You are never asked to enter payment card
+              details in the app.
+            </p>
+          </div>
+        </section>
+
+        <!-- 07 -->
+        <section id="sharing" aria-labelledby="sharing-title" class="border-t border-slate-100 pt-12">
+          <h2 id="sharing-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('sharing') }}</span>
+            How We Share Information
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">We share personal data only when it is necessary to provide the service:</p>
+          <ul class="mt-4 space-y-3 text-[0.95rem] leading-7 text-slate-600">
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined mt-0.5 text-[20px] text-brand-primary">local_shipping</span>
+              <span>
+                <strong class="font-bold text-brand-dark">Order fulfilment and quotations.</strong>
+                When you place an order or submit an RFQ, the details needed to quote, fulfil, and deliver it (your name, phone number, delivery address,
+                and the order or RFQ details) are shared with the supplier or Al Hendal Group team handling it.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined mt-0.5 text-[20px] text-brand-primary">dns</span>
+              <span>
+                <strong class="font-bold text-brand-dark">Service providers.</strong>
+                Providers that host our servers and store uploaded images process data on our behalf, only on our instructions, and under obligations to
+                protect it.
+              </span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined mt-0.5 text-[20px] text-brand-primary">account_balance</span>
+              <span>
+                <strong class="font-bold text-brand-dark">Legal obligations.</strong>
+                When disclosure is required by applicable law or by a valid request from a competent authority.
+              </span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- 08 -->
+        <section id="storage-security" aria-labelledby="security-title" class="border-t border-slate-100 pt-12">
+          <h2 id="security-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('storage-security') }}</span>
+            Storage &amp; Security
+          </h2>
+          <ul class="mt-5 space-y-3 text-[0.95rem] leading-7 text-slate-600">
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined mt-0.5 text-[20px] text-brand-primary">lock</span>
+              All data exchanged between the app and our servers is transmitted over encrypted HTTPS connections.
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined mt-0.5 text-[20px] text-brand-primary">smartphone</span>
+              On your device, the app keeps only the session data needed to keep you signed in. Your password is never stored on the device, and
+              session data is deleted when you log out.
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="material-symbols-outlined mt-0.5 text-[20px] text-brand-primary">admin_panel_settings</span>
+              Access to personal data on our systems is limited to authorized personnel who need it to operate the service.
+            </li>
+          </ul>
+        </section>
+
+        <!-- 09 -->
+        <section id="retention" aria-labelledby="retention-title" class="border-t border-slate-100 pt-12">
+          <h2 id="retention-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('retention') }}</span>
+            Data Retention
+          </h2>
+          <div class="mt-5 space-y-4 text-[0.95rem] leading-8 text-slate-600">
+            <p>We keep your personal data for as long as your account is active and as needed to provide the service to you.</p>
+            <p>
+              When you request deletion, we delete your personal data. Records we are legally required to keep, such as transaction records of
+              completed orders, are retained only for the period the law requires and are then deleted.
+            </p>
+          </div>
+        </section>
+
+        <!-- 10 -->
+        <section id="your-rights" aria-labelledby="rights-title" class="border-t border-slate-100 pt-12">
+          <h2 id="rights-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('your-rights') }}</span>
+            Your Rights
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">Under the Saudi Personal Data Protection Law, you have the following rights:</p>
+          <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+            <li *ngFor="let right of rights" class="flex gap-3 rounded-2xl border border-slate-200/80 p-4 transition-all duration-300 ease-in-out hover:border-brand-primary/20 hover:shadow-md">
+              <span class="material-symbols-outlined text-[22px] text-brand-gold-dark">{{ right.icon }}</span>
+              <span>
+                <span class="block text-sm font-black text-brand-dark">{{ right.title }}</span>
+                <span class="mt-1 block text-[0.84rem] leading-6 text-slate-500">{{ right.text }}</span>
+              </span>
+            </li>
+          </ul>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">
+            To exercise any of these rights, email
+            <a [href]="'mailto:' + email" class="font-bold text-brand-primary underline decoration-brand-gold/50 underline-offset-4 transition-colors duration-300 hover:text-brand-gold-dark">{{ email }}</a>.
+            We respond to every request within 30 days.
+          </p>
+        </section>
+
+        <!-- 11 -->
+        <section id="delete-account" aria-labelledby="delete-title" class="border-t border-slate-100 pt-12">
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-deeper via-brand-dark to-brand-primary p-6 text-white shadow-[0_30px_60px_-30px_rgba(4,33,26,0.8)] ring-1 ring-brand-gold/30 sm:p-8">
+            <div aria-hidden="true" class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-brand-gold/20 blur-[90px]"></div>
+            <div class="relative">
+              <h2 id="delete-title" class="flex items-center gap-3 text-xl font-black tracking-tight sm:text-2xl">
+                <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-gold/15 font-mono text-xs font-bold text-brand-gold-light ring-1 ring-brand-gold/30">{{ number('delete-account') }}</span>
+                Delete Your Account &amp; Data
+              </h2>
+              <p class="mt-4 text-[0.95rem] leading-8 text-white/70">You can remove your data from your device at any time, and you can ask us to erase your account completely.</p>
+
+              <div class="mt-6 grid gap-4 lg:grid-cols-2">
+                <div class="rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur">
+                  <span class="flex items-center gap-2.5 text-sm font-black text-brand-gold-light">
+                    <span class="grid h-9 w-9 place-items-center rounded-xl bg-white/10">
+                      <span class="material-symbols-outlined text-[20px]">logout</span>
+                    </span>
+                    Option 1 — Log out to clear this device
+                  </span>
+                  <p class="mt-3 text-[0.88rem] leading-7 text-white/75">
+                    When you log out, the app deletes the session data stored on your device, including your sign-in session and locally cached
+                    account information. Your account remains on our servers, so you can sign in again later.
+                  </p>
+                </div>
+
+                <div class="rounded-2xl border border-brand-gold/30 bg-brand-gold/[0.08] p-5 backdrop-blur">
+                  <span class="flex items-center gap-2.5 text-sm font-black text-brand-gold-light">
+                    <span class="grid h-9 w-9 place-items-center rounded-xl bg-brand-gold/20">
+                      <span class="material-symbols-outlined text-[20px]">delete_forever</span>
+                    </span>
+                    Option 2 — Request full account &amp; data erasure
+                  </span>
+                  <ol class="mt-4 space-y-3 text-[0.88rem] leading-6 text-white/80">
+                    <li class="flex gap-3">
+                      <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-gold text-[0.7rem] font-black text-brand-dark">1</span>
+                      <span>Email <strong class="font-bold text-white">{{ email }}</strong> from the email address registered to your account, with the subject "Account Deletion Request".</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-gold text-[0.7rem] font-black text-brand-dark">2</span>
+                      <span>Include the phone number on your account so we can verify that the request comes from you.</span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-gold text-[0.7rem] font-black text-brand-dark">3</span>
+                      <span>
+                        Within 30 days, we permanently delete your account and associated personal data: profile details, delivery addresses, orders,
+                        RFQs and negotiations, and material collections with their cover photos.
+                      </span>
+                    </li>
+                    <li class="flex gap-3">
+                      <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-gold text-[0.7rem] font-black text-brand-dark">4</span>
+                      <span>We confirm by email once the deletion is complete.</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <p class="mt-5 text-[0.82rem] leading-6 text-white/55">
+                Records we are legally required to keep, such as transaction records of completed orders, are retained only for the period the law
+                requires and are then deleted.
+              </p>
+
+              <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a [href]="deletionMailto" class="btn-gold group px-6">
+                  <span class="material-symbols-outlined text-[18px] transition-transform duration-300 ease-in-out group-hover:-translate-y-0.5">forward_to_inbox</span>
+                  Email deletion request
+                </a>
+                <button type="button" class="btn-ghost-light px-6" (click)="copyEmail()" [attr.aria-live]="'polite'">
+                  <span class="material-symbols-outlined text-[18px]" [ngClass]="copied() ? 'text-emerald-300' : 'text-brand-gold-light'">{{ copied() ? 'check' : 'content_copy' }}</span>
+                  {{ copied() ? 'Email copied' : 'Copy ' + email }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 12 -->
+        <section id="children" aria-labelledby="children-title" class="border-t border-slate-100 pt-12">
+          <h2 id="children-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('children') }}</span>
+            Children's Privacy
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">
+            M3mar is designed for contractors, businesses, and adults purchasing construction materials. It is not directed at children, and we do not
+            knowingly collect personal data from children. If you believe a child has provided us with personal data, contact us and we will delete it.
+          </p>
+        </section>
+
+        <!-- 13 -->
+        <section id="governing-framework" aria-labelledby="framework-title" class="border-t border-slate-100 pt-12">
+          <h2 id="framework-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('governing-framework') }}</span>
+            Governing Framework
+          </h2>
+          <div class="mt-5 space-y-4 text-[0.95rem] leading-8 text-slate-600">
+            <p>
+              We process personal data in accordance with the <strong class="font-bold text-brand-dark">Personal Data Protection Law (PDPL)</strong> of
+              the Kingdom of Saudi Arabia and its Implementing Regulations, overseen by the
+              <strong class="font-bold text-brand-dark">Saudi Data &amp; Artificial Intelligence Authority (SDAIA)</strong>.
+            </p>
+            <p>
+              If you believe your personal data has been processed in violation of the PDPL, you may contact us first so we can resolve it, and you have
+              the right to lodge a complaint with SDAIA.
+            </p>
+          </div>
+        </section>
+
+        <!-- 14 -->
+        <section id="changes" aria-labelledby="changes-title" class="border-t border-slate-100 pt-12">
+          <h2 id="changes-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('changes') }}</span>
+            Changes to This Policy
+          </h2>
+          <p class="mt-5 text-[0.95rem] leading-8 text-slate-600">
+            If we change how the app handles personal data, we will update this policy and its effective date on this page. Where a change materially
+            affects your rights, we will notify you before it takes effect.
+          </p>
+        </section>
+
+        <!-- 15 -->
+        <section id="contact" aria-labelledby="contact-title" class="border-t border-slate-100 pt-12">
+          <h2 id="contact-title" class="flex items-center gap-3 text-xl font-black tracking-tight text-brand-dark sm:text-2xl">
+            <span class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-brand-primary/[0.06] font-mono text-xs font-bold text-brand-primary ring-1 ring-brand-primary/10">{{ number('contact') }}</span>
+            Contact Us
+          </h2>
+          <div class="mt-6 flex flex-col gap-5 rounded-2xl border border-slate-200/80 bg-brand-bg/50 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div class="flex items-start gap-4">
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-primary text-brand-gold-light shadow-brand">
+                <span class="material-symbols-outlined text-[24px]">support_agent</span>
+              </span>
+              <div>
+                <p class="text-base font-black text-brand-dark">Al Hendal Group</p>
+                <p class="mt-0.5 text-sm leading-6 text-slate-500">Operator of the M3mar app. Privacy questions and data requests are answered within 30 days.</p>
+              </div>
+            </div>
+            <a [href]="'mailto:' + email" class="btn-primary group shrink-0 px-6">
+              <span class="material-symbols-outlined text-[18px] transition-transform duration-300 ease-in-out group-hover:-translate-y-0.5">mail</span>
+              {{ email }}
+            </a>
+          </div>
+        </section>
+      </div>
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-brand-deeper text-white/55">
+    <div class="container-x flex flex-col items-center justify-between gap-4 py-6 text-xs font-semibold sm:flex-row">
+      <p>© {{ year }} Al Hendal Group. All rights reserved.</p>
+      <nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-1">
+        <a routerLink="/" class="rounded-lg px-3 py-1.5 transition-all duration-300 ease-in-out hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40">Home</a>
+        <a
+          href="/privacy#delete-account"
+          (click)="goTo($event, 'delete-account')"
+          class="rounded-lg px-3 py-1.5 transition-all duration-300 ease-in-out hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40"
+        >Delete account</a>
+        <a [href]="'mailto:' + email" class="rounded-lg px-3 py-1.5 transition-all duration-300 ease-in-out hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40">{{ email }}</a>
+        <button
+          type="button"
+          (click)="toTop()"
+          class="inline-flex items-center gap-1 rounded-lg px-3 py-1.5 transition-all duration-300 ease-in-out hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40 active:scale-95"
+        >
+          <span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+          Top
+        </button>
+      </nav>
+    </div>
+  </footer>
+</div>

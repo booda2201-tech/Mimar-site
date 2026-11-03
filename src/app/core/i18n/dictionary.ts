@@ -448,6 +448,7 @@ const ar = {
     contact: 'تواصل',
     cr: 'سجل تجاري',
     rights: 'جميع الحقوق محفوظة',
+    privacy: 'سياسة الخصوصية',
     top: 'لأعلى',
   },
 };
@@ -899,6 +900,7 @@ const en: Dictionary = {
     contact: 'Contact',
     cr: 'C.R.',
     rights: 'All rights reserved',
+    privacy: 'Privacy Policy',
     top: 'Top',
   },
 };
