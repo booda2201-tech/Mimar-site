@@ -1,11 +1,9 @@
 import { Component, DestroyRef, NgZone, afterNextRender, inject, signal } from '@angular/core';
 import { NgClass, NgFor } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { SITE } from '../../core/site.config';
-
-const SUPPORT_EMAIL = 'support@mimar.app';
-const PAGE_TITLE = 'Privacy Policy | M3mar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { APP_SUPPORT_EMAIL } from '../../core/site.config';
+import { LegalShellComponent, scrollToSection } from '../legal-shell.component';
+import { copyText, usePageTitle } from '../page-utils';
 
 interface TocItem {
   id: string;
@@ -29,19 +27,19 @@ interface Permission {
 @Component({
   selector: 'app-privacy',
   standalone: true,
-  imports: [NgFor, NgClass, RouterLink],
+  imports: [NgFor, NgClass, LegalShellComponent],
   templateUrl: './privacy.component.html',
 })
 export class PrivacyComponent {
   private zone = inject(NgZone);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
-  readonly email = SUPPORT_EMAIL;
+  readonly email = APP_SUPPORT_EMAIL;
   readonly effectiveDate = 'November 3, 2026';
   readonly packageName = 'com.hendal.m3mar';
-  readonly logo = SITE.logo;
-  readonly year = new Date().getFullYear();
 
-  readonly active = signal('overview');
+  readonly active = signal(this.route.snapshot.fragment || 'overview');
   readonly copied = signal(false);
   private copyTimer = 0;
 
@@ -154,68 +152,34 @@ export class PrivacyComponent {
   ];
 
   readonly deletionMailto =
-    `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Account Deletion Request - M3mar')}` +
+    `mailto:${APP_SUPPORT_EMAIL}?subject=${encodeURIComponent('Account Deletion Request - M3mar')}` +
     `&body=${encodeURIComponent(
       'Hello M3mar Support,\n\nPlease permanently delete my M3mar account and all associated personal data.\n\nRegistered email:\nRegistered phone number:\n\nThank you.',
     )}`;
 
   constructor() {
-    const title = inject(Title);
-    const previousTitle = title.getTitle();
-    title.setTitle(PAGE_TITLE);
+    usePageTitle('Privacy Policy | M3mar');
 
     let observer: IntersectionObserver | undefined;
-    afterNextRender(() => {
-      const target = decodeURIComponent(location.hash.slice(1));
-      const section = target ? document.getElementById(target) : null;
-      if (section) {
-        section.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
-        this.active.set(target);
-      } else {
-        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-      }
-      observer = this.watchSections();
-    });
-
+    afterNextRender(() => (observer = this.watchSections()));
     inject(DestroyRef).onDestroy(() => {
       observer?.disconnect();
       clearTimeout(this.copyTimer);
-      title.setTitle(previousTitle);
     });
   }
 
   /** `href="#id"` would resolve against `<base href="/">` and leave this page, so in-page links scroll manually. */
   goTo(event: Event, id: string): void {
     event.preventDefault();
-    const section = document.getElementById(id);
-    if (!section) return;
     // The mobile menu sits above the content, so it has to collapse before the scroll target is measured.
     (event.currentTarget as HTMLElement | null)?.closest('details')?.removeAttribute('open');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    section.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
-    history.replaceState(history.state, '', `${location.pathname}#${id}`);
+    if (!scrollToSection(id)) return;
+    this.router.navigate([], { relativeTo: this.route, fragment: id, replaceUrl: true });
     this.active.set(id);
   }
 
-  toTop(): void {
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
-    history.replaceState(history.state, '', location.pathname);
-    this.active.set(this.toc[0].id);
-  }
-
   async copyEmail(): Promise<void> {
-    try {
-      await navigator.clipboard.writeText(SUPPORT_EMAIL);
-    } catch {
-      const area = document.createElement('textarea');
-      area.value = SUPPORT_EMAIL;
-      area.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(area);
-      area.select();
-      document.execCommand('copy');
-      area.remove();
-    }
+    await copyText(APP_SUPPORT_EMAIL);
     this.copied.set(true);
     clearTimeout(this.copyTimer);
     this.copyTimer = window.setTimeout(() => this.copied.set(false), 2200);

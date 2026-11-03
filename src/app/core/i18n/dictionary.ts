@@ -449,6 +449,7 @@ const ar = {
     cr: 'سجل تجاري',
     rights: 'جميع الحقوق محفوظة',
     privacy: 'سياسة الخصوصية',
+    support: 'الدعم الفني',
     top: 'لأعلى',
   },
 };
@@ -901,6 +902,7 @@ const en: Dictionary = {
     cr: 'C.R.',
     rights: 'All rights reserved',
     privacy: 'Privacy Policy',
+    support: 'Support',
     top: 'Top',
   },
 };

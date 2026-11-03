@@ -122,6 +122,13 @@ import { AppLinkService } from '../../core/app-link.service';
               <span class="material-symbols-outlined text-[16px]">shield_person</span>
               {{ i18n.t().footer.privacy }}
             </a>
+            <a
+              routerLink="/support"
+              class="inline-flex items-center gap-1 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40"
+            >
+              <span class="material-symbols-outlined text-[16px]">support_agent</span>
+              {{ i18n.t().footer.support }}
+            </a>
             <span>{{ i18n.t().footer.cr }}: <span dir="ltr">{{ site.commercialRegistration }}</span></span>
             <a href="#top" class="inline-flex items-center gap-1 rounded-lg px-2 py-1 transition-all duration-200 hover:bg-white/5 hover:text-white">
               <span class="material-symbols-outlined text-[16px]">arrow_upward</span>

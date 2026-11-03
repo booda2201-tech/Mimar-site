@@ -45,6 +45,9 @@ export const SITE = {
 const PROD_API = 'https://alhendalcompany-001-site13.jtempurl.com';
 
 /** في التطوير بنعدّي من proxy.conf.json، وفي الإنتاج دومين الموقع لازم يتضاف لـ CORS في الباك إند */
+/** إيميل دعم تطبيق M3mar الرسمي — مستخدم في صفحات /privacy و /support */
+export const APP_SUPPORT_EMAIL = 'support@mimar.app';
+
 export const API_BASE = isDevMode() ? '' : PROD_API;
 
 /**

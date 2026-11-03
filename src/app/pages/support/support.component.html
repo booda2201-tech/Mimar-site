@@ -1,0 +1,157 @@
+<app-legal-shell
+  eyebrow="Help Center"
+  eyebrowIcon="support_agent"
+  heading="M3mar Support"
+  lead="Get help with your account, orders, quotations (RFQs), and material collections in the M3mar app. Our team answers every request by email."
+>
+  <ul shellMeta class="mt-8 flex flex-wrap gap-2.5 text-xs font-bold sm:text-sm">
+    <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-white/85 backdrop-blur">
+      <span class="material-symbols-outlined text-[16px] text-brand-gold-light">mail</span>
+      {{ email }}
+    </li>
+    <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-white/85 backdrop-blur">
+      <span class="material-symbols-outlined text-[16px] text-brand-gold-light">android</span>
+      <span class="font-mono font-semibold">{{ packageName }}</span>
+    </li>
+    <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-white/85 backdrop-blur">
+      <span class="material-symbols-outlined text-[16px] text-brand-gold-light">apartment</span>
+      Operated by Al Hendal Group
+    </li>
+  </ul>
+
+  <!-- Contact card -->
+  <div class="container-x relative z-[1] -mt-14 sm:-mt-16">
+    <div id="contact" class="grid overflow-hidden rounded-3xl bg-white shadow-card ring-1 ring-black/[0.04] lg:grid-cols-[1.15fr_1fr]">
+      <div class="p-6 sm:p-9">
+        <span class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-primary text-brand-gold-light shadow-brand">
+          <span class="material-symbols-outlined text-[24px]">forward_to_inbox</span>
+        </span>
+        <h2 class="mt-5 text-2xl font-black tracking-tight text-brand-dark">Email our support team</h2>
+        <p class="mt-2 max-w-md text-[0.95rem] leading-7 text-slate-600">
+          Send us your question and we will reply to the email address you write from. The button below opens a ready-to-fill message.
+        </p>
+        <a
+          [href]="'mailto:' + email"
+          class="mt-5 inline-flex items-center gap-2 rounded-xl text-lg font-black text-brand-primary underline decoration-brand-gold/50 underline-offset-[6px] transition-colors duration-300 ease-in-out hover:text-brand-gold-dark focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15"
+        >
+          {{ email }}
+        </a>
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+          <a [href]="mainMailto" class="btn-gold group px-6">
+            <span class="material-symbols-outlined text-[18px] transition-transform duration-300 ease-in-out group-hover:-translate-y-0.5">edit_square</span>
+            Write to support
+          </a>
+          <button type="button" class="btn-outline px-6" (click)="copyEmail()" [attr.aria-live]="'polite'">
+            <span class="material-symbols-outlined text-[18px]" [class.text-emerald-600]="copied()">{{ copied() ? 'check' : 'content_copy' }}</span>
+            {{ copied() ? 'Email copied' : 'Copy email' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-100 bg-brand-bg/60 p-6 sm:p-9 lg:border-l lg:border-t-0">
+        <p class="flex items-center gap-2 text-sm font-black text-brand-dark">
+          <span class="material-symbols-outlined text-[20px] text-brand-gold-dark">checklist</span>
+          Include in your message
+        </p>
+        <ul class="mt-4 space-y-3">
+          <li *ngFor="let item of checklist; let i = index" class="flex items-start gap-3 text-[0.9rem] leading-6 text-slate-600">
+            <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-white text-[0.7rem] font-black text-brand-primary shadow-sm ring-1 ring-brand-primary/10">{{ i + 1 }}</span>
+            {{ item }}
+          </li>
+        </ul>
+        <p class="mt-5 flex items-start gap-2 rounded-xl bg-white p-3.5 text-[0.82rem] leading-6 text-slate-500 ring-1 ring-black/[0.04]">
+          <span class="material-symbols-outlined text-[18px] text-brand-primary">lock</span>
+          Never send your password. Our team will never ask for it.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Topics -->
+  <section id="topics" aria-labelledby="topics-title" class="container-x pt-14 sm:pt-20">
+    <p class="eyebrow">Help topics</p>
+    <h2 id="topics-title" class="mt-3 text-2xl font-black tracking-tight text-brand-dark sm:text-3xl">What do you need help with?</h2>
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <li
+        *ngFor="let topic of topics"
+        class="group flex flex-col rounded-2xl bg-white p-6 shadow-card ring-1 ring-black/[0.04] transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-md hover:ring-brand-gold/40"
+      >
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-brand-primary/[0.06] text-brand-primary transition-colors duration-300 ease-in-out group-hover:bg-brand-gold/15 group-hover:text-brand-gold-dark">
+          <span class="material-symbols-outlined text-[22px]">{{ topic.icon }}</span>
+        </span>
+        <h3 class="mt-4 text-base font-black text-brand-dark">{{ topic.title }}</h3>
+        <p class="mt-1.5 flex-1 text-[0.88rem] leading-6 text-slate-500">{{ topic.text }}</p>
+        <a
+          *ngIf="topic.link as link; else emailTopic"
+          [routerLink]="link.path"
+          [fragment]="link.fragment"
+          class="mt-5 inline-flex items-center gap-1.5 self-start rounded-lg text-sm font-extrabold text-brand-primary transition-colors duration-300 ease-in-out hover:text-brand-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30"
+        >
+          {{ link.label }}
+          <span class="material-symbols-outlined text-[18px] transition-transform duration-300 ease-in-out group-hover:translate-x-0.5">arrow_forward</span>
+        </a>
+        <ng-template #emailTopic>
+          <a
+            [href]="topicMailto(topic)"
+            class="mt-5 inline-flex items-center gap-1.5 self-start rounded-lg text-sm font-extrabold text-brand-primary transition-colors duration-300 ease-in-out hover:text-brand-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30"
+          >
+            Email about this
+            <span class="material-symbols-outlined text-[18px] transition-transform duration-300 ease-in-out group-hover:translate-x-0.5">arrow_forward</span>
+          </a>
+        </ng-template>
+      </li>
+    </ul>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" aria-labelledby="faq-title" class="container-x py-14 sm:py-20">
+    <div class="grid gap-8 lg:grid-cols-[18rem_minmax(0,1fr)] lg:gap-12">
+      <div>
+        <p class="eyebrow">Quick answers</p>
+        <h2 id="faq-title" class="mt-3 text-2xl font-black tracking-tight text-brand-dark sm:text-3xl">Common questions</h2>
+        <p class="mt-3 text-[0.95rem] leading-7 text-slate-500">Can't find your answer? Email us and we will help.</p>
+      </div>
+      <div class="space-y-3">
+        <details
+          *ngFor="let faq of faqs; let first = first"
+          [attr.open]="first ? '' : null"
+          class="group rounded-2xl bg-white shadow-card ring-1 ring-black/[0.04] transition-all duration-300 ease-in-out open:ring-brand-gold/40 hover:shadow-md"
+        >
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-5 py-4 text-[0.95rem] font-black text-brand-dark transition-colors duration-300 ease-in-out hover:text-brand-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-primary/15 sm:px-6 [&::-webkit-details-marker]:hidden">
+            {{ faq.q }}
+            <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand-bg text-slate-500 transition-all duration-300 ease-in-out group-open:rotate-45 group-open:bg-brand-gold/15 group-open:text-brand-gold-dark">
+              <span class="material-symbols-outlined text-[20px]">add</span>
+            </span>
+          </summary>
+          <div class="px-5 pb-5 text-[0.92rem] leading-7 text-slate-600 sm:px-6">
+            <p>{{ faq.a }}</p>
+            <a
+              *ngIf="faq.link as link"
+              [routerLink]="link.path"
+              [fragment]="link.fragment"
+              class="mt-3 inline-flex items-center gap-1.5 rounded-lg text-sm font-extrabold text-brand-primary transition-colors duration-300 ease-in-out hover:text-brand-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30"
+            >
+              {{ link.label }}
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </a>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Still need help -->
+  <section class="container-x pb-16 sm:pb-20">
+    <div class="grain relative isolate flex flex-col items-start justify-between gap-6 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-deeper via-brand-dark to-brand-primary p-7 text-white shadow-[0_30px_60px_-30px_rgba(4,33,26,0.8)] ring-1 ring-brand-gold/30 sm:p-10 lg:flex-row lg:items-center">
+      <div aria-hidden="true" class="pointer-events-none absolute -right-16 -top-16 -z-10 h-56 w-56 rounded-full bg-brand-gold/20 blur-[90px]"></div>
+      <div>
+        <h2 class="text-2xl font-black tracking-tight">Still need help?</h2>
+        <p class="mt-2 max-w-xl text-[0.95rem] leading-7 text-white/70">Write to us at {{ email }} and include your registered email or phone so we can find your account.</p>
+      </div>
+      <a [href]="mainMailto" class="btn-gold group shrink-0 px-7">
+        <span class="material-symbols-outlined text-[18px] transition-transform duration-300 ease-in-out group-hover:-translate-y-0.5">mail</span>
+        Email support
+      </a>
+    </div>
+  </section>
+</app-legal-shell>
