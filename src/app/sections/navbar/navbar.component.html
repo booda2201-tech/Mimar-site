@@ -18,16 +18,19 @@
     </a>
 
     <ul class="hidden items-center gap-1 lg:flex">
-      <li *ngFor="let l of links">
+      <li *ngFor="let l of links$ | async">
         <a
           [href]="'#' + l.id"
-          class="relative rounded-lg px-3.5 py-2 text-sm font-bold transition-all duration-300 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+          (click)="goTo($event, l.id)"
+          class="relative rounded-lg px-3.5 py-2 text-sm font-bold transition-all duration-300 ease-in-out hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
           [ngClass]="active === l.id ? 'text-white' : 'text-white/70'"
+          [attr.aria-current]="active === l.id ? 'location' : null"
         >
           {{ i18n.t().nav[l.key] }}
           <span
-            class="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-brand-gold transition-all duration-300"
-            [ngClass]="active === l.id ? 'opacity-100' : 'scale-x-0 opacity-0'"
+            aria-hidden="true"
+            class="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-brand-gold transition-all duration-300 ease-in-out"
+            [ngClass]="active === l.id ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'"
           ></span>
         </a>
       </li>
@@ -87,14 +90,19 @@
     [ngClass]="menuOpen ? 'max-h-[80vh] opacity-100' : 'pointer-events-none max-h-0 opacity-0'"
   >
     <ul class="container-x flex flex-col gap-1 py-4">
-      <li *ngFor="let l of links">
+      <li *ngFor="let l of links$ | async">
         <a
           [href]="'#' + l.id"
-          (click)="closeMenu()"
-          class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold text-white/85 transition-all duration-200 hover:bg-white/5 hover:text-white"
+          (click)="goTo($event, l.id)"
+          class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold transition-all duration-300 ease-in-out hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/40"
+          [ngClass]="active === l.id ? 'bg-white/5 text-white' : 'text-white/85'"
+          [attr.aria-current]="active === l.id ? 'location' : null"
         >
           {{ i18n.t().nav[l.key] }}
-          <span class="material-symbols-outlined text-brand-gold/70 rtl:rotate-180">chevron_right</span>
+          <span
+            class="material-symbols-outlined transition-all duration-300 ease-in-out"
+            [ngClass]="active === l.id ? 'text-brand-gold' : 'text-brand-gold/70 rtl:rotate-180'"
+          >{{ active === l.id ? 'check' : 'chevron_right' }}</span>
         </a>
       </li>
       <li class="grid gap-2 pt-2 sm:grid-cols-2">

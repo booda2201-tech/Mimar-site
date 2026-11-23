@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, ViewChild, inject, signal } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { combineLatest, map } from 'rxjs';
+import { CatalogService } from '../../core/catalog.service';
 import { LangService } from '../../core/i18n/lang.service';
 import { LeadService } from '../../core/lead.service';
 import { LeadKind, SITE } from '../../core/site.config';
@@ -9,7 +11,7 @@ import { AppLinkService } from '../../core/app-link.service';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, NgIf, AsyncPipe, RouterLink],
   template: `
     <footer class="grain relative isolate overflow-hidden bg-brand-deeper text-white">
       <div class="h-px bg-gradient-to-r from-transparent via-brand-gold-light to-transparent"></div>
@@ -71,7 +73,7 @@ import { AppLinkService } from '../../core/app-link.service';
         <nav>
           <h3 class="footer-heading text-sm font-black text-brand-gold-light">{{ i18n.t().footer.links }}</h3>
           <ul class="mt-5 space-y-3">
-            <li *ngFor="let l of links">
+            <li *ngFor="let l of links$ | async">
               <a [href]="'#' + l" class="group inline-flex items-center gap-2 text-sm font-semibold text-white/60 transition-all duration-300 hover:text-white focus-visible:outline-none focus-visible:text-brand-gold-light">
                 <span class="h-px w-0 bg-brand-gold transition-all duration-300 group-hover:w-4"></span>
                 {{ $any(i18n.t().nav)[l] }}
@@ -147,7 +149,14 @@ export class FooterComponent {
   readonly site = SITE;
   readonly year = new Date().getFullYear();
   readonly telHref = `tel:${SITE.contact.phone.replace(/\s/g, '')}`;
-  readonly links = ['features', 'how', 'offers', 'categories', 'download', 'contact'];
+  private catalog = inject(CatalogService);
+  readonly links$ = combineLatest([this.catalog.hasOffers$, this.catalog.hasCategories$]).pipe(
+    map(([hasOffers, hasCategories]) =>
+      (['features', 'how', 'offers', 'categories', 'download', 'contact'] as const).filter((id) =>
+        id === 'offers' ? hasOffers : id === 'categories' ? hasCategories : true,
+      ),
+    ),
+  );
 
   readonly socials = (
     [

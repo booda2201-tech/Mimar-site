@@ -62,9 +62,14 @@ export class HomeComponent {
     const cameFromAnotherPage = inject(Router).navigated;
     afterNextRender(() => {
       if (!cameFromAnotherPage) return;
-      const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
-      if (target) target.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
-      else window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      const id = location.hash ? decodeURIComponent(location.hash.slice(1)) : '';
+      const target = id ? document.getElementById(id) : null;
+      // أقسام زي العروض ممكن تكون مخفية لو الـ API مرجعش داتا — مفيش سكـرول لقسم مش ظاهر
+      if (target && !target.hidden && target.getClientRects().length) {
+        target.scrollIntoView({ block: 'start', behavior: 'instant' as ScrollBehavior });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+      }
     });
   }
 }

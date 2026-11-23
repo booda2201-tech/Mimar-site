@@ -91,6 +91,17 @@ export class CatalogService {
     shareReplay(1),
   );
 
+  /** عشان الناف بار والفوتر يخفوا لينك العروض/الفئات لما القسم مش ظاهر */
+  readonly hasOffers$ = this.offers$.pipe(
+    map((list) => list.length > 0),
+    shareReplay(1),
+  );
+
+  readonly hasCategories$ = this.categories$.pipe(
+    map((list) => list.length > 0),
+    shareReplay(1),
+  );
+
   readonly advertisements$ = this.get<Advertisement[]>('/api/Advertisements').pipe(
     map((list) => list.filter((a) => a.isActive && a.isRunning).sort((a, b) => a.displayOrder - b.displayOrder)),
     shareReplay(1),
